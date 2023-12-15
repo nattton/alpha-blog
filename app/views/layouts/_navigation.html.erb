@@ -10,22 +10,42 @@
           <a class="nav-link active" aria-current="page" href="<%= root_path %>">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <%= link_to "Bloggers", users_path, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Articles
           </a>
           <ul class="dropdown-menu">
-            <%= link_to "Create new article", new_article_path, class: "dropdown-item" %>
+            <% if logged_in? %>
+              <%= link_to "Create new article", new_article_path, class: "dropdown-item" %>
+            <% end %>
             <%= link_to "View articles", articles_path, class: "dropdown-item" %>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
+        <% if logged_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Profile [<%= current_user.username %>]
+            </a>
+            <ul class="dropdown-menu">
+              <%= link_to "View your profile", current_user, class: "dropdown-item" %>
+              <%= link_to "Edit your profile", edit_user_path(current_user), class: "dropdown-item" %>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Logout", logout_path, class: "nav-link", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Log in", login_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign up", signup_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
