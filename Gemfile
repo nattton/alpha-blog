@@ -70,7 +70,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-group :production do
-  gem 'pg'
-end
