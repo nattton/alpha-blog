@@ -1,0 +1,6 @@
+<h1 class="text-center mt-4">Edit Category: <%= @category.name %></h1>
+<%= render "form", category: @category %>
+
+<div class="mb-3">
+    <%= link_to '[ Cancel and return to category ]', @category, class: "text-info" %>
+</div>
